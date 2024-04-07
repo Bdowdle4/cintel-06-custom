@@ -1,0 +1,28 @@
+# https://shiny.posit.co/py/templates/map-distance/
+# https://github.com/plotly/datasets/blob/master/2011_february_aa_flight_paths.csv
+#Components: SELECT INPUT, VALUE BOX, MAP, 
+#Layouts: SIDEBAR, GRID LAYOUT, CARDS
+
+
+# imports (at the top)
+#-----------------------------------------------------------------------------
+
+
+# define a reactive calc to fake new data points and/or filter a data frame
+#-----------------------------------------------------------------------------
+
+
+# define the Shiny Express UI
+#-----------------------------------------------------------------------------
+
+
+# The overall page options
+#-----------------------------------------------------------------------------
+
+
+# A sidebar
+#-----------------------------------------------------------------------------
+
+
+# The main section with ui cards, value boxes, and space for grids and charts
+#-----------------------------------------------------------------------------
