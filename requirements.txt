@@ -1,0 +1,5 @@
+faicons
+geopy
+ipyleaflet
+requests
+shinywidgets
