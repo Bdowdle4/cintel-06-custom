@@ -1,5 +1,6 @@
-faicons
-geopy
-ipyleaflet
-requests
+shiny 
 shinywidgets
+ipyleaflet
+geopy
+faicons
+requests
