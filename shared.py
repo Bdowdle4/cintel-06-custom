@@ -1,3 +1,5 @@
+from ipyleaflet import basemaps
+
 BASEMAPS = {
     "WorldImagery": basemaps.Esri.WorldImagery,
     "Mapnik": basemaps.OpenStreetMap.Mapnik,
