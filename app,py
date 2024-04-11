@@ -1,4 +1,5 @@
 # https://shiny.posit.co/py/templates/map-distance/
+# https://github.com/posit-dev/py-shiny-templates/tree/main/map-distance
 # https://github.com/plotly/datasets/blob/master/2011_february_aa_flight_paths.csv
 #Components: SELECT INPUT, VALUE BOX, MAP, 
 #Layouts: SIDEBAR, GRID LAYOUT, CARDS
@@ -13,6 +14,9 @@ from shared import BASEMAPS, CITIES
 from shiny import reactive
 from shiny.express import input, render, ui
 from shinywidgets import render_widget
+import plotly.express as px
+import pandas as pd
+
 
 # define a reactive calc to fake new data points and/or filter a data frame
 #-----------------------------------------------------------------------------
@@ -26,7 +30,7 @@ ui.page_opts(title="AA Flight Distance Calculator", fillable=True)
 
 # A sidebar
 #-----------------------------------------------------------------------------
-with ui.sidebar():
+with ui.sidebar(style="background-color: green; color: white"):
     ui.input_selectize("loc1", "Airport 1", choices=city_names, selected="BDL")
     ui.input_selectize("loc2", "Airport 2", choices=city_names, selected="BOS")
     ui.input_selectize(
@@ -36,11 +40,20 @@ with ui.sidebar():
         selected="WorldImagery",
     )
     ui.input_dark_mode(mode="dark")
+    
+    ui.hr()
+    ui.h6("Important Links:",
+         style="text-decoration:underline")
+    ui.a(
+        "GitHub Repo",
+        href="https://github.com/Bdowdle4/cintel-06-custom",
+        target="_blank",
+    )
 
 # The main section with ui cards, value boxes, and space for grids and charts
 #-----------------------------------------------------------------------------
 with ui.layout_column_wrap(fill=False):
-    with ui.value_box(showcase=icon_svg("globe"), theme="gradient-blue-indigo"):
+    with ui.value_box(showcase=icon_svg("plane-departure"), theme="gradient-green-indigo"):
         "Flight Path Distance"
 
         @render.text
@@ -48,7 +61,7 @@ with ui.layout_column_wrap(fill=False):
             circle = great_circle(loc1xy(), loc2xy())
             return f"{circle.kilometers.__round__(1)} km"
 
-    with ui.value_box(showcase=icon_svg("ruler"), theme="gradient-blue-indigo"):
+    with ui.value_box(showcase=icon_svg("route"), theme="gradient-green-indigo"):
         "Flat Distance"
 
         @render.text
@@ -56,7 +69,7 @@ with ui.layout_column_wrap(fill=False):
             dist = geodesic(loc1xy(), loc2xy())
             return f"{dist.kilometers.__round__(1)} km"
 
-    with ui.value_box(showcase=icon_svg("mountain"), theme="gradient-blue-indigo"):
+    with ui.value_box(showcase=icon_svg("cloud-arrow-up"), theme="gradient-green-indigo"):
         "Altitude Difference"
 
         @render.text
@@ -68,7 +81,7 @@ with ui.layout_column_wrap(fill=False):
 
 
 with ui.card():
-    ui.card_header("Map (move the markers to change airports)")
+    ui.card_header("Map (move the markers to change airports)", style="background-color: green; color: white;")
 
     @render_widget
     def map():
