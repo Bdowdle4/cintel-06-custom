@@ -101,7 +101,7 @@ with ui.navset_card_tab(id="tab1"):
                 return render.DataTable(df, summary=False, filters=True)
 
     with ui.nav_panel("Chart"):
-        with ui.card(full_screen=True, min_height="200px"):
+        with ui.card(full_screen=True, min_height="200px", style= "background-color: lightcyan;"):
             ui.card_header("Count of Flights Made (double click to filter)", style="background-color: green; color: black;")
 
             @render_plotly
