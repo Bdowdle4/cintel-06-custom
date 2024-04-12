@@ -16,7 +16,7 @@ from shiny.express import input, render, ui
 from shinywidgets import render_widget
 import plotly.express as px
 import pandas as pd
-
+from shared1 import df
 
 # define a reactive calc to fake new data points and/or filter a data frame
 #-----------------------------------------------------------------------------
@@ -78,6 +78,13 @@ with ui.layout_column_wrap(fill=False):
                 return f'{loc1()["altitude"] - loc2()["altitude"]} m'
             except TypeError:
                 return "N/A (altitude lookup failed)"
+
+with ui.card():
+    ui.card_header("Data Table", style="background-color: green; color: white;")
+    
+    @render.data_frame
+    def data():
+        return df
 
 
 with ui.card():
