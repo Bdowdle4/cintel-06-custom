@@ -1,3 +1,4 @@
+
 # https://shiny.posit.co/py/templates/map-distance/
 # https://github.com/posit-dev/py-shiny-templates/tree/main/map-distance
 # https://github.com/plotly/datasets/blob/master/2011_february_aa_flight_paths.csv
@@ -25,12 +26,12 @@ city_names = sorted(list(CITIES.keys()))
 # define the Shiny Express UI
 # The overall page options
 #-----------------------------------------------------------------------------
-ui.page_opts(title="AA Flight Distance Calculator", fillable=True)
+ui.page_opts(title="AA Flight Distance Calculator", fillable=False)
 {"class": "bslib-page-dashboard"}
 
 # A sidebar
 #-----------------------------------------------------------------------------
-with ui.sidebar(style="background-color: green; color: white"):
+with ui.sidebar(style="background-color: green; color: black"):
     ui.input_selectize("loc1", "Airport 1", choices=city_names, selected="BDL")
     ui.input_selectize("loc2", "Airport 2", choices=city_names, selected="BOS")
     ui.input_selectize(
@@ -45,8 +46,20 @@ with ui.sidebar(style="background-color: green; color: white"):
     ui.h6("Important Links:",
          style="text-decoration:underline")
     ui.a(
-        "GitHub Repo",
+        "Brittany's GitHub Repo",
         href="https://github.com/Bdowdle4/cintel-06-custom",
+        target="_blank",
+    )
+
+    ui.a(
+        "Plotly Dataset",
+        href="https://github.com/plotly/datasets/blob/master/2011_february_aa_flight_paths.csv",
+        target="_blank",
+    )
+
+    ui.a(
+        "Py-Shiny Template",
+        href="https://shiny.posit.co/py/templates/map-distance/",
         target="_blank",
     )
 
@@ -79,16 +92,24 @@ with ui.layout_column_wrap(fill=False):
             except TypeError:
                 return "N/A (altitude lookup failed)"
 
-with ui.card(full_screen=True, min_height="200px"):
-    ui.card_header("Data Table", style="background-color: green; color: white;")
+with ui.navset_card_tab(id="tab1"):
+    with ui.nav_panel("Data"):
+        with ui.card(full_screen=True, min_height="200px"):
+            ui.card_header("Data Table", style="background-color: green; color: black;")
     
-    @render.data_frame
-    def data():
-        return render.DataTable(df, summary=False, filters=True)
+            @render.data_frame
+            def data():
+                return render.DataTable(df, summary=False, filters=True)
+
+    with ui.nav_panel("Chart"):
+        with ui.card(full_screen=True, min_height="200px"):
+            ui.card_header("Bubble Map", style="background-color: green; color: black;")
+
+            "bubble map"
 
 
-with ui.card(full_screen=True):
-    ui.card_header("Map (move the markers to change airports)", style="background-color: green; color: white;")
+with ui.card(full_screen=True, min_height="300px"):
+    ui.card_header("Map (move the markers to change airports)", style="background-color: green; color: black;")
 
     @render_widget
     def map():
