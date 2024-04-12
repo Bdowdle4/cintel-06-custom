@@ -4,3 +4,5 @@ ipyleaflet
 geopy
 faicons
 requests
+shared
+pathlib
