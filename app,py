@@ -1,4 +1,3 @@
-
 # https://shiny.posit.co/py/templates/map-distance/
 # https://github.com/posit-dev/py-shiny-templates/tree/main/map-distance
 # https://github.com/plotly/datasets/blob/master/2011_february_aa_flight_paths.csv
@@ -14,7 +13,7 @@ from geopy.distance import geodesic, great_circle
 from shared import BASEMAPS, CITIES
 from shiny import reactive
 from shiny.express import input, render, ui
-from shinywidgets import render_widget
+from shinywidgets import render_widget, render_plotly
 import plotly.express as px
 import pandas as pd
 from shared1 import df
@@ -95,7 +94,7 @@ with ui.layout_column_wrap(fill=False):
 with ui.navset_card_tab(id="tab1"):
     with ui.nav_panel("Data"):
         with ui.card(full_screen=True, min_height="200px"):
-            ui.card_header("Data Table", style="background-color: green; color: black;")
+            ui.card_header("2011 February AA Flight Paths", style="background-color: green; color: black;")
     
             @render.data_frame
             def data():
@@ -103,13 +102,22 @@ with ui.navset_card_tab(id="tab1"):
 
     with ui.nav_panel("Chart"):
         with ui.card(full_screen=True, min_height="200px"):
-            ui.card_header("Bubble Map", style="background-color: green; color: black;")
+            ui.card_header("Count of Flights Made (double click to filter)", style="background-color: green; color: black;")
 
-            "bubble map"
-
+            @render_plotly
+            def plotly_scatterplot():
+                return px.scatter_geo(
+                    df,
+                    lat='end_lat', 
+                    lon='end_lon', 
+                    hover_name='airport1', 
+                    size='cnt', 
+                    projection='albers usa', 
+                    color='airport2', 
+                    size_max=20)  
 
 with ui.card(full_screen=True, min_height="300px"):
-    ui.card_header("Map (move the markers to change airports)", style="background-color: green; color: black;")
+    ui.card_header("Map (choose inputs from sidebar)", style="background-color: green; color: black;")
 
     @render_widget
     def map():
